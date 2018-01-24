@@ -293,8 +293,7 @@ var DateInput = (function (_super) {
         var _a = this.props, onKeyDown = _a.onKeyDown, onSelect = _a.onSelect, onChange = _a.onChange;
         return (React.createElement("div", { className: "form-group" },
             React.createElement("div", { className: "input-group" },
-                React.createElement(TextField_1.default, null),
-                React.createElement("input", { ref: (function (ref) { return _this.el = ref; }), type: "text", className: "form-control", value: this.props.value, onChange: function (e) { }, onKeyDown: function (e) {
+                React.createElement(TextField_1.default, { ref: (function (ref) { return _this.el = ref; }), type: "text", value: this.props.value, onChange: function (e) { }, onKeyDown: function (e) {
                         if (e.keyCode >= 48 && e.keyCode <= 57) {
                             onChange(e.keyCode, e);
                         }
@@ -303,6 +302,7 @@ var DateInput = (function (_super) {
                         }
                     }, onSelect: function (e) {
                         e.preventDefault();
+                        console.log(_this.el.selectionStart, _this.el.selectionEnd);
                         var _a = [_this.el.selectionStart, _this.el.selectionEnd], start = _a[0], end = _a[1];
                         onSelect(start, end);
                     } }))));
