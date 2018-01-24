@@ -1,4 +1,5 @@
 import React = require("react");
+import TextField from 'material-ui/TextField';
 
 export const ArrowDown = "ArrowDown";
 export const ArrowLeft = "ArrowLeft";
@@ -309,6 +310,7 @@ export class DateInput extends React.Component<InputProps, {}> {
     return (
       <div className="form-group">
         <div className="input-group">
+          <TextField />
           <input
             ref = {(ref => this.el = ref) }
             type="text"
