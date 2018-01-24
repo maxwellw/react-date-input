@@ -1,22 +1,29 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var TextField_1 = require("material-ui/TextField");
 exports.ArrowDown = "ArrowDown";
 exports.ArrowLeft = "ArrowLeft";
 exports.ArrowUp = "ArrowUp";
 exports.ArrowRight = "ArrowRight";
 exports.Backspace = "Backspace";
 exports.Tab = "Tab";
+var DateFormats;
 (function (DateFormats) {
     DateFormats[DateFormats["MMDDYYYY"] = 0] = "MMDDYYYY";
     DateFormats[DateFormats["DDMMYYYY"] = 1] = "DDMMYYYY";
     DateFormats[DateFormats["YYYMMDD"] = 2] = "YYYMMDD";
-})(exports.DateFormats || (exports.DateFormats = {}));
-var DateFormats = exports.DateFormats;
+})(DateFormats = exports.DateFormats || (exports.DateFormats = {}));
 var MMDDYYFormate = {
     MONTH_SECTION: { start: 0, end: 2 },
     DATE_SECTION: { start: 3, end: 5 },
@@ -96,18 +103,18 @@ var DateSection = (function () {
     return DateSection;
 }());
 exports.DateSection = DateSection;
+var FormattedDateSections;
 (function (FormattedDateSections) {
     FormattedDateSections[FormattedDateSections["MONTH_SECTION"] = 0] = "MONTH_SECTION";
     FormattedDateSections[FormattedDateSections["DATE_SECTION"] = 1] = "DATE_SECTION";
     FormattedDateSections[FormattedDateSections["YEAR_SECTION"] = 2] = "YEAR_SECTION";
-})(exports.FormattedDateSections || (exports.FormattedDateSections = {}));
-var FormattedDateSections = exports.FormattedDateSections;
+})(FormattedDateSections = exports.FormattedDateSections || (exports.FormattedDateSections = {}));
 ;
 var DateInputComponent = (function (_super) {
     __extends(DateInputComponent, _super);
     function DateInputComponent(props) {
-        _super.call(this, props);
-        this.state = {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
             selectedDateSection: FormattedDateSections.MONTH_SECTION,
             values: {
                 DATE_SECTION: new DateSection("DD", 2, "date"),
@@ -115,6 +122,7 @@ var DateInputComponent = (function (_super) {
                 YEAR_SECTION: new DateSection("YYYY", 4, "year"),
             }
         };
+        return _this;
     }
     DateInputComponent.prototype.formattedDate = function (fmtMonth, fmtDay, fmtYear) {
         if (this.props.dateFormat && this.props.dateFormat == DateFormats.DDMMYYYY) {
@@ -252,11 +260,11 @@ var DateInputComponent = (function (_super) {
     };
     DateInputComponent.prototype.render = function () {
         var _this = this;
-        return (React.createElement(DateInput, {dateFormate: this.props.dateFormat, onChange: function (key, e) {
-            _this.onChange(key, e);
-        }, onKeyDown: function (keyCode, e) {
-            _this.onKeydown(keyCode, e);
-        }, onSelect: function (start, end) { return _this.onSelect(start, end); }, value: this.dateValue(), selectedDateSection: this.state.selectedDateSection}));
+        return (React.createElement(DateInput, { dateFormate: this.props.dateFormat, onChange: function (key, e) {
+                _this.onChange(key, e);
+            }, onKeyDown: function (keyCode, e) {
+                _this.onKeydown(keyCode, e);
+            }, onSelect: function (start, end) { return _this.onSelect(start, end); }, value: this.dateValue(), selectedDateSection: this.state.selectedDateSection }));
     };
     return DateInputComponent;
 }(React.Component));
@@ -264,7 +272,7 @@ exports.DateInputComponent = DateInputComponent;
 var DateInput = (function (_super) {
     __extends(DateInput, _super);
     function DateInput() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     DateInput.prototype.getSelectedDateFormat = function () {
         if (this.props.dateFormate === DateFormats.DDMMYYYY) {
@@ -283,18 +291,21 @@ var DateInput = (function (_super) {
     DateInput.prototype.render = function () {
         var _this = this;
         var _a = this.props, onKeyDown = _a.onKeyDown, onSelect = _a.onSelect, onChange = _a.onChange;
-        return (React.createElement("div", {className: "form-group"}, React.createElement("div", {className: "input-group"}, React.createElement("input", {ref: (function (ref) { return _this.el = ref; }), type: "text", className: "form-control", value: this.props.value, onChange: function (e) { }, onKeyDown: function (e) {
-            if (e.keyCode >= 48 && e.keyCode <= 57) {
-                onChange(e.keyCode, e);
-            }
-            else {
-                onKeyDown(e.key, e);
-            }
-        }, onSelect: function (e) {
-            e.preventDefault();
-            var _a = [_this.el.selectionStart, _this.el.selectionEnd], start = _a[0], end = _a[1];
-            onSelect(start, end);
-        }}))));
+        return (React.createElement("div", { className: "form-group" },
+            React.createElement("div", { className: "input-group" },
+                React.createElement(TextField_1.default, null),
+                React.createElement("input", { ref: (function (ref) { return _this.el = ref; }), type: "text", className: "form-control", value: this.props.value, onChange: function (e) { }, onKeyDown: function (e) {
+                        if (e.keyCode >= 48 && e.keyCode <= 57) {
+                            onChange(e.keyCode, e);
+                        }
+                        else {
+                            onKeyDown(e.key, e);
+                        }
+                    }, onSelect: function (e) {
+                        e.preventDefault();
+                        var _a = [_this.el.selectionStart, _this.el.selectionEnd], start = _a[0], end = _a[1];
+                        onSelect(start, end);
+                    } }))));
     };
     return DateInput;
 }(React.Component));
